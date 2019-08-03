@@ -25,16 +25,16 @@ def main():
 
     # Добавляем хендлеры в диспетчер
     
-    PORT = int(os.environ.get('PORT', '8443'))
+    PORT = int(os.environ.get('PORT', '5000'))
     bot = telegram.Bot(token = TOKEN)
-    bot.set_webhook("https://akannbot.herokuapp.com/" + TOKEN)
+    bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)
 
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(text_message_handler)
     updater.start_webhook(listen="0.0.0.0",
                         port=PORT,
                         url_path=TOKEN)
-    updater.bot.set_webhook("https://akannbot.herokuapp.com/" + TOKEN)
+    updater.bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)
     updater.idle()
 
     
