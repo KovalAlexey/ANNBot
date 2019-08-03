@@ -13,10 +13,12 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+TOKEN = "922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE"
+updater = Updater(TOKEN)
+PORT = int(os.environ.get('PORT', '5000'))
 
 def main():
-    TOKEN = "922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE"
-    updater = Updater(TOKEN)
+    
     dispatcher = updater.dispatcher
 
     # Хендлеры
@@ -24,17 +26,17 @@ def main():
     text_message_handler = MessageHandler(Filters.text, textMessage)
 
     # Добавляем хендлеры в диспетчер
-    
-    PORT = int(os.environ.get('PORT', '5000'))
+    updater.start_webhook(listen="0.0.0.0",
+                        port=PORT,
+                        url_path=TOKEN)   
+    updater.bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)                    
     bot = telegram.Bot(token = TOKEN)
     bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)
 
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(text_message_handler)
-    updater.start_webhook(listen="0.0.0.0",
-                        port=PORT,
-                        url_path=TOKEN)
-    updater.bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)
+    
+    
     updater.idle()
 
     
