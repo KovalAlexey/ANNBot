@@ -27,7 +27,7 @@ def main():
     
     PORT = int(os.environ.get('PORT', '8443'))
     bot = telegram.Bot(token = TOKEN)
-    bot.set_Webhook("https://akannbot.herokuapp.com/" + TOKEN)
+    bot.set_webhook("https://akannbot.herokuapp.com/" + TOKEN)
 
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(text_message_handler)
