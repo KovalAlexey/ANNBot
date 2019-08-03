@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    updater = Updater(token='922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE')
-
+    TOKEN = "922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE"
+    updater = Updater(TOKEN)
     dispatcher = updater.dispatcher
 
     # Хендлеры
@@ -23,10 +23,15 @@ def main():
     text_message_handler = MessageHandler(Filters.text, textMessage)
 
     # Добавляем хендлеры в диспетчер
+    
+    PORT = int(os.environ.get('PORT', '8443'))
+    
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(text_message_handler)
-    
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                        port=PORT,
+                        url_path=TOKEN)
+    updater.bot.set_webhook("https://akannbot.herokuapp.com/" + TOKEN)
     updater.idle()
 
     
