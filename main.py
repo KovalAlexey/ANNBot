@@ -7,35 +7,26 @@ from telegram import ChatAction
 import logging
 import json
 import apiai
-import os
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
-TOKEN = "922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE"
-updater = Updater(TOKEN)
-PORT = int(os.environ.get('PORT', '8443'))
 
 def main():
-    
+    updater = Updater(token='922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE')
+
     dispatcher = updater.dispatcher
 
     # Хендлеры
     start_command_handler = CommandHandler('start', startCommand)
     text_message_handler = MessageHandler(Filters.text, textMessage)
 
-    updater.start_webhook(listen="0.0.0.0",
-                        port=PORT,
-                        url_path=TOKEN)   
-    updater.bot.setWebhook("https://akannbot.herokuapp.com/")       
-
     # Добавляем хендлеры в диспетчер
-
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(text_message_handler)
     
-    
+    updater.start_polling()
     updater.idle()
 
     
