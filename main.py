@@ -16,8 +16,6 @@ logger = logging.getLogger(__name__)
 TOKEN = "922085233:AAHiGf9lDXRCN9V86xsPdF0hz8EdAcVYUdE"
 updater = Updater(TOKEN)
 PORT = int(os.environ.get('PORT', '8443'))
-bot = telegram.Bot(token = TOKEN)
-bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)
 
 def main():
     
@@ -30,7 +28,7 @@ def main():
     updater.start_webhook(listen="0.0.0.0",
                         port=PORT,
                         url_path=TOKEN)   
-    updater.bot.setWebhook("https://akannbot.herokuapp.com/")       
+    updater.bot.setWebhook("https://akannbot.herokuapp.com/" + TOKEN)       
 
     # Добавляем хендлеры в диспетчер
 
