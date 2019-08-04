@@ -34,7 +34,7 @@ def startCommand(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text='Привет, давай пообщаемся?')
 
 def textMessage(bot, update):
-    request = apiai.ApiAI('9099819b68ff4ad790feca12d420626d').text_request()
+    request = apiai.ApiAI('42a45538636e4d3e91024855d83fe616').text_request()
     request.lang = 'ru'
     request.session_id = 'ANNBot' # ID Сессии диалога (нужно, чтобы потом учить бота)
 
